@@ -1,0 +1,1852 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <title>大阪市 区民センター・施設状況・予約システム</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta name="description" content="大阪市 区民センター・施設状況・予約システム">
+    <meta name="keywords" content="大阪市 区民センター・施設状況・予約システム">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Fujitelecom">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <!-- Local CSS -->
+    <!-- 
+	<link rel="stylesheet" href="css/fonts.css"/>
+    <link rel="stylesheet" href="css/fontawesome.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css" >
+    <link rel="stylesheet" href="css/mdb.min.css">
+     -->
+	<link href="https://fonts.googleapis.com/earlyaccess/notosansjp.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/telecom.css" >
+  </head>
+  <body>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+		<div class="container-xl">
+			<span class="navbar-brand" >大阪市 区民センター・施設状況・予約システム</span>
+		</div>
+	</nav>
+    <div class="wrapper">
+    	<div class="container-xl main-container pb-3">
+    		<div class="card-sp bg-success my-1 p-2" role="alert">
+    			<h4 class="font-weight-bold m-0 p-0 lh-15"><i class="far fa-calendar-check mr-3"></i>空き状況 <a href="index.html" role="button" class="btn btn-default btn-back">戻る</a></h3>
+			</div>
+    		<div class="alert alert-info my-1 p-1 text-left border-info" role="alert">
+				<p class="p-0 m-0 text-info info">・ご希望の日付と施設を選択してください。</p>
+				<p class="p-0 m-0 text-info info">・その後希望のご利用の時間帯を選択し、予約を行ってください。</p>
+			</div>
+			<div class="row justify-content-center align-items-center m-0 p-0 d-none">
+				<button role="button" class="btn btn-sm btn-amber" id="refreshBtn">最新情報表示</button><span class="latest-data text-center">2020年03月06日（金）午後 02時36分現在の空き状況を表示しています。</span>
+			</div>
+			<div class="row mx-0 mt-1">
+				<div class="card border-primary w-100">
+					<h6 class="card-header wd"><i class="fas fa-building text-primary mr-3"></i> 施設情報</h6>
+					<div class="card-body row m-0 p-2">
+						<div class="col-sm-5 m-0 px-2">
+							<div class="w-100 d-inline-flex justify-content-between align-items-center m-0">
+								<span class="faci">北区民センター</span>
+								<span class="tel">06-6315-1500</span>
+							</div>
+							<div class="w-100 d-inline-flex justify-content-around align-items-center m-0">
+								<button role="button" class="btn btn-sm btn-indigo" data-toggle="modal" data-target="#shisetsuModal">施設情報を見る</button>
+								<button role="button" class="btn btn-sm btn-brown" data-toggle="modal" data-target="#ryoukinModal">料金表を見る</button>
+							</div>
+						</div>
+						<div class="col-sm-7 m-0 px-2">
+							<p>【開館時間】9時30分～21時30分</p>
+							<p>（午前：9時30分～12時30分、午後：13時～17時、夜間：17時30分～21時30分、全日：9時30分～21時30分）</p>
+							<p>条件：会議室　（定員：15人未満）</p>
+						</div>
+						<div class="col-sm-12 m-0 text-center">
+							<p>○：空きあり　×：空きなし　黄色枠：優先団体予約　灰色枠：対象外　待ち数字：キャンセル待ち件数</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row mx-0 my-2">
+				<div class="card border-success w-100">
+					<div class="card-header justify-content-center" style="border-bottom-width:0;">
+						<button type="button" class="btn btn-success prev-week-btn"><i class="fas fa-angle-left fa-pull-left"></i>前週</button>
+						<button type="button" class="btn btn-warning" id="dateSelectBtn">日付選択</button><input type="hidden" name="seldate" value="" />
+						<button type="button" class="btn btn-success next-week-btn">翌週<i class="fas fa-angle-right fa-pull-right"></i></button>
+						<button type="button" class="btn btn-info today-btn">今日</button>
+					</div>
+				</div>
+				<div class="row w-100 m-0 p-0 pt-1 mb-1">
+				    <!-- Desktop -->
+					<table class="table table-sm table-bordered tbl-akijokyo tbl-pc m-0 p-0 border-green">
+					  <thead>
+					    <tr>
+					      <th scope="col" rowspan="2" class="header col-room"><div class="border-green">部屋/時間帯</div></th>
+					      <th scope="col" colspan="3" class="header wd0 sun">3/08(日)</th>
+					      <th scope="col" colspan="3" class="header wd1">3/09(月)</th>
+					      <th scope="col" colspan="3" class="header wd2">3/10(火)</th>
+					      <th scope="col" colspan="3" class="header wd3">3/11(水)</th>
+					      <th scope="col" colspan="3" class="header wd4">3/12(木)</th>
+					      <th scope="col" colspan="3" class="header wd5">3/13(金)</th>
+					      <th scope="col" colspan="3" class="header wd6 sat">3/14(土)</th>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wdd0 sun">午前</th>
+					      <th scope="col" class="header wdd0 sun">午後</th>
+					      <th scope="col" class="header wdd0 sun">夜間</th>
+					      <th scope="col" class="header wdd1">午前</th>
+					      <th scope="col" class="header wdd1">午後</th>
+					      <th scope="col" class="header wdd1">夜間</th>
+					      <th scope="col" class="header wdd2">午前</th>
+					      <th scope="col" class="header wdd2">午後</th>
+					      <th scope="col" class="header wdd2">夜間</th>
+					      <th scope="col" class="header wdd3">午前</th>
+					      <th scope="col" class="header wdd3">午後</th>
+					      <th scope="col" class="header wdd3">夜間</th>
+					      <th scope="col" class="header wdd4">午前</th>
+					      <th scope="col" class="header wdd4">午後</th>
+					      <th scope="col" class="header wdd4">夜間</th>
+					      <th scope="col" class="header wdd5">午前</th>
+					      <th scope="col" class="header wdd5">午後</th>
+					      <th scope="col" class="header wdd5">夜間</th>
+					      <th scope="col" class="header wdd6 sat">午前</th>
+					      <th scope="col" class="header wdd6 sat">午後</th>
+					      <th scope="col" class="header wdd6 sat">夜間</th>
+					    </tr>
+					  </thead>
+					  <tbody class="akijokyo-tbody">
+					    <tr>
+					      <th scope="col" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >ホール</a><br/>
+					      		<span class="text-muted">広さ：549.5m² / 定員：700人</span>
+					      </th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第１会議室</a><br/>
+					      		<span class="text-muted">広さ：71.1m² / 定員：20人</span>
+					      </th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第２会議室</a><br/>
+					      		<span class="text-muted">広さ：73.4m² / 定員：20人</span>
+					      </th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第３会議室</a><br/>
+					      		<span class="text-muted">広さ：38.4m² / 定員：12人</span>
+					      </th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第４会議室</a><br/>
+					      		<span class="text-muted">広さ：49.3m² / 定員：20人</span>
+					      </th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第５会議室</a><br/>
+					      		<span class="text-muted">広さ：35.6m² / 定員：18人</span>
+					      </th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第６会議室</a><br/>
+					      		<span class="text-muted">広さ：22.8m² / 定員：12人</span>
+					      </th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >和室１</a><br/>
+					      		<span class="text-muted">面積：10畳 / 定員：10人</span>
+					      </th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >和室２</a><br/>
+					      		<span class="text-muted">面積：12畳 / 定員：12人</span>
+					      </th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					  </tbody>
+					</table>
+					<!-- Mobile -->
+					<table class="table table-sm table-bordered tbl-akijokyo tbl-sp m-0 p-0 border-green">
+					  <thead>
+					    <tr>
+					      <th scope="col" class="header col-room" style="width:35%;"><div class="border-green">部屋/時間帯</div></th>
+					      <th scope="col" class="header" style="width:20%;">日付</th>
+					      <th scope="col" class="header" style="width:15%;">午前</th>
+					      <th scope="col" class="header" style="width:15%;">午後</th>
+					      <th scope="col" class="header" style="width:15%;">夜間</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <th scope="col" rowspan="7" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >ホール</a><br/>
+					      		<span class="text-muted">広さ：549.5m² / <br/>定員：700人</span>
+					      </th>
+					      <th scope="col" class="header wd0 sun">3/08(日)</th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd1">3/09(月)</th>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd2">3/10(火)</th>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd3">3/11(水)</th>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd4">3/12(木)</th>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd5">3/13(金)</th>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd6 sat">3/14(土)</th>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr>
+					      <th scope="col" rowspan="7" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第１会議室</a><br/>
+					      		<span class="text-muted">広さ：71.1m² / <br/>定員：20人</span>
+					      </th>
+					      <th scope="col" class="header wd0 sun">3/08(日)</th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd1">3/09(月)</th>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd2">3/10(火)</th>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd3">3/11(水)</th>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd4">3/12(木)</th>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd5">3/13(金)</th>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd6 sat">3/14(土)</th>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr>
+					      <th scope="col" rowspan="7" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第２会議室</a><br/>
+					      		<span class="text-muted">広さ：73.4m² / <br/>定員：20人</span>
+					      </th>
+					      <th scope="col" class="header wd0 sun">3/08(日)</th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd1">3/09(月)</th>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd2">3/10(火)</th>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd3">3/11(水)</th>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd4">3/12(木)</th>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd5">3/13(金)</th>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd6 sat">3/14(土)</th>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr>
+					      <th scope="col" rowspan="7" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第３会議室</a><br/>
+					      		<span class="text-muted">広さ：38.4m² / <br/>定員：12人</span>
+					      </th>
+					      <th scope="col" class="header wd0 sun">3/08(日)</th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd1">3/09(月)</th>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd2">3/10(火)</th>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd3">3/11(水)</th>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd4">3/12(木)</th>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd5">3/13(金)</th>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd6 sat">3/14(土)</th>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr>
+					      <th scope="col" rowspan="7" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第４会議室</a><br/>
+					      		<span class="text-muted">広さ：49.3m² / <br/>定員：20人</span>
+					      </th>
+					      <th scope="col" class="header wd0 sun">3/08(日)</th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd1">3/09(月)</th>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd2">3/10(火)</th>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd3">3/11(水)</th>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd4">3/12(木)</th>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd5">3/13(金)</th>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd6 sat">3/14(土)</th>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr>
+					      <th scope="col" rowspan="7" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第５会議室</a><br/>
+					      		<span class="text-muted">広さ：35.6m² / <br/>定員：18人</span>
+					      </th>
+					      <th scope="col" class="header wd0 sun">3/08(日)</th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd1">3/09(月)</th>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd2">3/10(火)</th>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd3">3/11(水)</th>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd4">3/12(木)</th>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd5">3/13(金)</th>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd6 sat">3/14(土)</th>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr>
+					      <th scope="col" rowspan="7" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >第６会議室</a><br/>
+					      		<span class="text-muted">広さ：22.8m² / <br/>定員：12人</span>
+					      </th>
+					      <th scope="col" class="header wd0 sun">3/08(日)</th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd1">3/09(月)</th>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd2">3/10(火)</th>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd3">3/11(水)</th>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd4">3/12(木)</th>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd5">3/13(金)</th>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd6 sat">3/14(土)</th>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr>
+					      <th scope="col" rowspan="7" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >和室１</a><br/>
+					      		<span class="text-muted">面積：10畳 / <br/>定員：10人</span>
+					      </th>
+					      <th scope="col" class="header wd0 sun">3/08(日)</th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd1">3/09(月)</th>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd2">3/10(火)</th>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd3">3/11(水)</th>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd4">3/12(木)</th>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd5">3/13(金)</th>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd6 sat">3/14(土)</th>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					  </tbody>
+					  <tbody>
+					    <tr>
+					      <th scope="col" rowspan="7" class="col-room">
+					      		<a href="" data-toggle="modal" data-target="#roomModal" data-rid="0" >和室２</a><br/>
+					      		<span class="text-muted">面積：12畳 / <br/>定員：12人</span>
+					      </th>
+					      <th scope="col" class="header wd0 sun">3/08(日)</th>
+					      <td class="aday day0 ts0 sun"><span>○</span></td>
+					      <td class="aday day0 ts1 sun"><span>×</span></td>
+					      <td class="aday day0 ts2 sun"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd1">3/09(月)</th>
+					      <td class="aday day1 ts0"><span>○</span></td>
+					      <td class="aday day1 ts1"><span>×</span></td>
+					      <td class="aday day1 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd2">3/10(火)</th>
+					      <td class="aday day2 ts0"><span>○</span></td>
+					      <td class="aday day2 ts1"><span>×</span></td>
+					      <td class="aday day2 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd3">3/11(水)</th>
+					      <td class="aday day3 ts0"><span>○</span></td>
+					      <td class="aday day3 ts1"><span>×</span></td>
+					      <td class="aday day3 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd4">3/12(木)</th>
+					      <td class="aday day4 ts0"><span>○</span></td>
+					      <td class="aday day4 ts1"><span>×</span></td>
+					      <td class="aday day4 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd5">3/13(金)</th>
+					      <td class="aday day5 ts0"><span>○</span></td>
+					      <td class="aday day5 ts1"><span>×</span></td>
+					      <td class="aday day5 ts2"><span>○</span></td>
+					    </tr>
+					    <tr>
+					      <th scope="col" class="header wd6 sat">3/14(土)</th>
+					      <td class="aday day6 ts0 sat"><span>○</span></td>
+					      <td class="aday day6 ts1 sat"><span>×</span></td>
+					      <td class="aday day6 ts2 sat"><span>○</span></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+    </div>
+	<footer>
+		<div class="text-muted text-center">大阪市 区民センター・施設状況・予約システム. <br/>Copyright &copy; All rights reserved.</div>
+	</footer>
+	<!-- 施設情報Modal -->
+	<div class="modal right fade" id="shisetsuModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="shisetsuModal">
+		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h4 class="modal-title text-light font-weight-bold" id="shisetsuModalLabel"><i class="far fa-building text-white mr-3"></i>施設情報</h4>
+					<button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">閉じる <span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body py-2 px-1">
+					<div class="row justify-content-around p-0 m-0" id="shisetsuBodyCont">
+						<div class="alert alert-info w-100 mb-2 mx-0 d-flex flex-row flex-wrap justify-content-between" role="alert">
+						    <div class="col-6 m-0 p-0 text-left"><span>北区民センター</span></div>
+				            <div class="col-6 m-0 p-0 text-right"><a href="https://www.osakacommunity.jp/kita/sisetu_a.html" target="_blank">サイトへ<i class="fas fa-angle-right ml-3"></i></a></div>
+				            <div class="col-12 p-2">
+				                <img src="https://www.osakacommunity.jp/kita/images/kita.png" width="100%" height="auto" />
+				            </div>
+			            </div>
+			            <!--  -->
+					    <div class="card border-teal w-100 mb-2">
+        					<h6 class="card-header wd">施設詳細</h6>
+        					<div class="card-body row m-0 p-2">
+        					    <div class="row w-100 m-0 p-0">
+            						<div class="col-sm-2 col-lbl">
+            						    <span>郵便番号</span>
+            						</div>
+            						<div class="col-sm-4 col-inp">
+            							<p>〒530-8401</p>
+            						</div>
+            						<div class="col-sm-2 col-lbl">
+            						    <span>住所</span>
+            						</div>
+            						<div class="col-sm-4 col-inp">
+            							<p>大阪市北区扇町2-1-27</p>
+            						</div>
+         						</div>
+       					        <div class="row w-100 m-0 p-0">
+            						<div class="col-sm-2 col-lbl">
+            						    <span>TEL</span>
+            						</div>
+            						<div class="col-sm-4 col-inp">
+            							<p>06-6315-1500</p>
+            						</div>
+            						<div class="col-sm-2 col-lbl">
+            						    <span>FAX</span>
+            						</div>
+            						<div class="col-sm-4 col-inp">
+            							<p>06-6367-1990</p>
+            						</div>
+        						</div>
+       					        <div class="row w-100 m-0 p-0">
+            						<div class="col-sm-2 col-lbl">
+            						    <span>開館時間 (利用時間)</span>
+            						</div>
+            						<div class="col-sm-4 col-inp">
+            							<p>午前9時30分～午後9時30分</p>
+            						</div>
+            						<div class="col-sm-2 col-lbl">
+            						    <span>休館日</span>
+            						</div>
+            						<div class="col-sm-4 col-inp">
+            							<p>年末年始（12/29～1/3）など </p>
+            						</div>
+        						</div>
+       					        <div class="row w-100 m-0 p-0">
+            						<div class="col-sm-2 col-lbl">
+            						    <span>入場料 (利用料金)</span>
+            						</div>
+            						<div class="col-sm-4 col-inp">
+            							<p>無料（貸室については、別途料金が必要です）</p>
+            						</div>
+            						<div class="col-sm-2 col-lbl">
+            						    <span>指定管理者</span>
+            						</div>
+            						<div class="col-sm-4 col-inp">
+            							<p>一般財団法人大阪市コミュニティ協会</p>
+            						</div>
+        						</div>
+        					    <div class="row w-100 m-0 p-0 row-last">
+            						<div class="col-sm-2 col-lbl">
+            						    <span>平面図</span>
+            						</div>
+            						<div class="col-sm-5 col-inp">
+            							<p><img src="https://www.osakacommunity.jp/kita/images/floormap/floormap_k1.png" width="100%" height="auto" /></p>
+            						</div>
+            						<div class="col-sm-5 col-inp">
+            							<p><img src="https://www.osakacommunity.jp/kita/images/floormap/floormap_k2.png" width="100%" height="auto" /></p>
+            						</div>
+        						</div>
+        					</div>
+        				</div>
+					    <div class="card border-teal w-100 mb-2">
+        					<h6 class="card-header wd">アクセスマップ</h6>
+        					<div class="card-body row m-0 p-2">
+        					    <div class="row w-100 m-0 p-0 row-last">
+            						<div class="col-sm-2 col-lbl">
+            						    <span>アクセスマップ</span>
+            						</div>
+            						<div class="col-sm-6 col-inp">
+            							<p><img src="img/kita_shisetsu_map.png" width="100%" height="auto" /></p>
+            						</div>
+            						<div class="col-sm-4 col-inp">
+            							<p>地下鉄堺筋線「扇町」駅　2号-B出口北へ3分</p>
+            							<p>JR環状線「天満」駅　西へ3分　北区役所隣</p>
+            						</div>
+         						</div>
+        					</div>
+        				</div>
+        				<!-- 申し込み方法 -->
+					    <div class="card border-teal w-100 mb-2">
+        					<h6 class="card-header wd">申し込み方法</h6>
+        					<div class="card-body row m-0 p-2">
+        					    <div class="row w-100 m-0 p-0 row-last">
+            						<div class="col-sm-2 col-lbl">
+            						    <span>申込方法</span>
+            						</div>
+            						<div class="col-sm-10 col-inp">
+            							<p>ご利用日の６ヶ月前（応当日）からお申込みできます。</p>
+            							<p>※例えば、１２月２４日のご予約であれば６月２４日受付開始となります。</p>
+            							<p>※受付開始日が休館の場合は休館明けの最初の開館日が受付開始となります。</p>
+            							<p>受付時間：　午前９時３０分～</p>
+            							<p>予約・申込方法については、以下の２種類の方法で対応しています。</p>
+            							<p>①窓口申込</p>
+            							<p>②FAX申込</p>
+            							<p class="text-alert">注※お電話でのお申込みはできません。</p>
+            						</div>
+         						</div>
+        					</div>
+        				</div>
+        				<!-- 設備詳細 -->
+					    <div class="card border-teal w-100 mb-2">
+        					<h6 class="card-header wd">設備詳細</h6>
+        					<div class="card-body row m-0 p-2">
+        					    <div class="row w-100 m-0 mb-1 p-0 row-last">
+            						<div class="col-sm-2 col-lbl">
+            						    <span><i class="fas fa-parking mr-2"></i>駐車場情報</span>
+            						</div>
+            						<div class="col-sm-10 col-inp">
+                                        <p>★有料の地下駐車場があります。</p>
+                                        <p>★地下駐車場から北区民センターに上がるエレベーターがあります。</p>
+                                        <p>★建物の東側に駐車場入口があります。</p>
+                                        <p>★南森町交差点から天神橋筋を北へ関西テレビ（青いガラス張りの建物）の北隣がタイムズ北区役所地下駐車場入口です。</p>
+                                        <p><a href="https://times-info.net/map/parkdetails/BUK0021280.html" target="_blank">タイムズ北区役所地下駐車場ホームページへ</a></p>
+            						</div>
+         						</div>
+        					    <div class="row w-100 m-0 p-0">
+            						<div class="col-sm-4 col-lbl">
+            						    <span><i class="fas fa-book mr-2"></i>図書室・図書コーナーの有無</span>
+            						</div>
+            						<div class="col-sm-2 col-inp">
+            							<p>無し</p>
+            						</div>
+            						<div class="col-sm-4 col-lbl">
+            						    <span><i class="fas fa-baby mr-2"></i>保育室となる部屋の有無</span>
+            						</div>
+            						<div class="col-sm-2 col-inp">
+            							<p>無し</p>
+            						</div>
+         						</div>
+        					    <div class="row w-100 m-0 p-0">
+            						<div class="col-sm-4 col-lbl">
+            						    <span><i class="fas fa-copy mr-2"></i>コピー機の有無</span>
+            						</div>
+            						<div class="col-sm-2 col-inp">
+            							<p>無し</p>
+            						</div>
+            						<div class="col-sm-4 col-lbl">
+            						    <span><i class="fas fa-print mr-2"></i>印刷機の有無</span>
+            						</div>
+            						<div class="col-sm-2 col-inp">
+            							<p>無し</p>
+            						</div>
+         						</div>
+        					    <div class="row w-100 m-0 p-0 row-last">
+            						<div class="col-sm-4 col-lbl">
+            						    <span><i class="fas fa-edit mr-2"></i>利用できる教材</span>
+            						</div>
+            						<div class="col-sm-8 col-inp">
+            							<p>無し</p>
+            						</div>
+         						</div>
+        					</div>
+        				</div>
+					</div>
+				</div>
+			</div><!-- modal-content -->
+		</div><!-- modal-dialog -->
+	</div><!-- modal -->
+	<!-- 一料金表情報Modal -->
+	<div class="modal right fade" id="ryoukinModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="ryoukinModal">
+		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h4 class="modal-title text-light font-weight-bold" id="ryoukinModalLabel">施設利用料金</h4>
+					<button type="button" class="btn btn-light m-0" data-dismiss="modal" aria-label="Close">閉じる <span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body py-2 px-1">
+					<div class="row justify-content-around p-0 m-0" id="ryoukinBodyCont">
+					<!-- TODO: -->
+						<div class="alert alert-info w-100 mb-2 mx-0 p-2" role="alert">
+						    <p>大阪市区役所附設条例及び大阪市区役所附設会館条例施行規則に伴い、平成29年4月1日から区民センター・区民ホール等の使用料の納付期限が変更になります。</p>
+						    <p>・<a href="https://www.osakacommunity.jp/kita/images/henkousetumei.pdf" target="_blank">区民センターのお申込・ご利用方法について</a></p>
+						    <p>・<a href="https://www.osakacommunity.jp/kita/sisetu_a.html#zennousei" target="_blank">お支払方法について</a></p>
+			            </div>
+			            <!--  -->
+			            <div class="card-sp card-nav-tabs card-plain mx-0 p-0 w-100">
+			                <div class="card-header card-header-danger w-100">
+    			                <div class="nav-tabs-navigation w-100">
+    			                    <div class="nav-tabs-wrapper">
+                                      <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="nav-item col-sm-4 px-0 text-center">
+                                          <a class="nav-link active" href="#entranceFeeNai" role="tab" data-toggle="tab">
+                                            入場料を徴収しないもの
+                                          </a>
+                                        </li>
+                                        <li class="nav-item col-sm-4 px-0 text-center">
+                                          <a class="nav-link" href="#entranceFeeAri" role="tab" data-toggle="tab">
+                                            入場料を徴収するもの
+                                          </a>
+                                        </li>
+                                        <li class="nav-item col-sm-4 px-0 text-center">
+                                          <a class="nav-link" href="#bihinFee" role="tab" data-toggle="tab">
+                                            附属設備利用料金
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </div>
+    			                </div>
+    			            </div>
+                            <div class="card-body m-0 py-2 px-1">
+                              <div class="tab-content">
+                                  <div class="tab-pane active" id="entranceFeeNai">
+                                    <h6>使用にあたって入場料の類を徴収しないものの料金</h6>
+                                    <div class="row m-0 p-0 ryokin-cont">
+                                        <table class="table table-sm table-bordered m-0 p-0 border-blue tbl-ryokin" style="min-width:500px;">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="3" style="width:25%;">室　　名 <br/>(面積 / 定員)</th>
+                                                    <th colspan="6" style="width:60%;"><span class="text-danger">入場料を徴収しないもの</span>　(円）</th>
+                                                    <th rowspan="3"  style="width:15%;">備考</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ry1" style="width:10%;">午前</th>
+                                                    <th class="ry2" style="width:10%;">午後</th>
+                                                    <th class="ry3" style="width:10%;">夜間</th>
+                                                    <th class="ry4" style="width:10%;">午前-午後</th>
+                                                    <th class="ry5" style="width:10%;">午後-夜間</th>
+                                                    <th class="ry6" style="width:10%;">全日</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ry1" style="width:10%;">9：30～12：30</th>
+                                                    <th class="ry2" style="width:10%;">13：00～17：00</th>
+                                                    <th class="ry3" style="width:10%;">17：30～21：30</th>
+                                                    <th class="ry4" style="width:10%;">9：30～17：00</th>
+                                                    <th class="ry5" style="width:10%;">13：00～21：30</th>
+                                                    <th class="ry6" style="width:10%;">9：30～21：30</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="col-room"><span>ホール</span><br/><span class="text-muted">(広さ：549.5m² / 定員：700人)</span></td>
+                                                    <td class="num ry1">11,000</td>
+                                                    <td class="num ry2">14,600</td>
+                                                    <td class="num ry3">14,600</td>
+                                                    <td class="num ry4">21,800</td>
+                                                    <td class="num ry5">24,700</td>
+                                                    <td class="num ry6">34,900</td>
+                                                    <td>舞台つき</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第1会議室<br/><span class="text-muted">(広さ：71.7m² / 定員：20人)</span></td>
+                                                    <td class="num ry1">1,300</td>
+                                                    <td class="num ry2">1,800</td>
+                                                    <td class="num ry3">1,800</td>
+                                                    <td class="num ry4">2,400</td>
+                                                    <td class="num ry5">2,800</td>
+                                                    <td class="num ry6">3,900</td>
+                                                    <td rowspan="2">2室の場合56名</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第2会議室<br/><span class="text-muted">(広さ：73.7m² / 定員：20人)</span></td>
+                                                    <td class="num ry1">1,300</td>
+                                                    <td class="num ry2">1,800</td>
+                                                    <td class="num ry3">1,800</td>
+                                                    <td class="num ry4">2,400</td>
+                                                    <td class="num ry5">2,800</td>
+                                                    <td class="num ry6">3,900</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第3会議室<br/><span class="text-muted">(広さ：38.4m² / 定員：12人)</span></td>
+                                                    <td class="num ry1">1,000</td>
+                                                    <td class="num ry2">1,300</td>
+                                                    <td class="num ry3">1,300</td>
+                                                    <td class="num ry4">1,500</td>
+                                                    <td class="num ry5">1,700</td>
+                                                    <td class="num ry6">2,400</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第4会議室<br/><span class="text-muted">(広さ：49.3m² / 定員：20人)</span></td>
+                                                    <td class="num ry1">1,000</td>
+                                                    <td class="num ry2">1,300</td>
+                                                    <td class="num ry3">1,300</td>
+                                                    <td class="num ry4">1,500</td>
+                                                    <td class="num ry5">1,700</td>
+                                                    <td class="num ry6">2,400</td>
+                                                    <td>厨房有り</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第5会議室<br/><span class="text-muted">(広さ：35.6m² / 定員：18人)</span></td>
+                                                    <td class="num ry1">1,000</td>
+                                                    <td class="num ry2">1,300</td>
+                                                    <td class="num ry3">1,300</td>
+                                                    <td class="num ry4">1,500</td>
+                                                    <td class="num ry5">1,700</td>
+                                                    <td class="num ry6">2,400</td>
+                                                    <td rowspan="2">2室の場合30名</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第6会議室<br/><span class="text-muted">(広さ：22.8m² / 定員：12人)</span></td>
+                                                    <td class="num ry1">1,000</td>
+                                                    <td class="num ry2">1,300</td>
+                                                    <td class="num ry3">1,300</td>
+                                                    <td class="num ry4">1,500</td>
+                                                    <td class="num ry5">1,700</td>
+                                                    <td class="num ry6">2,400</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>和室（１）<br/><span class="text-muted">(面積：10畳 / 定員：10人)</span></td>
+                                                    <td class="num ry1">1,000</td>
+                                                    <td class="num ry2">1,300</td>
+                                                    <td class="num ry3">1,300</td>
+                                                    <td class="num ry4">1,500</td>
+                                                    <td class="num ry5">1,700</td>
+                                                    <td class="num ry6">2,400</td>
+                                                    <td rowspan="2">2室通して利用可</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>和室（２）<br/><span class="text-muted">(面積：12畳 / 定員：12人)</span></td>
+                                                    <td class="num ry1">1,000</td>
+                                                    <td class="num ry2">1,300</td>
+                                                    <td class="num ry3">1,300</td>
+                                                    <td class="num ry4">1,500</td>
+                                                    <td class="num ry5">1,700</td>
+                                                    <td class="num ry6">2,400</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row m-0 p-0 w-100">
+                                        <p class="text-muted text-right w-100">＊ホールの定員はイス席で７００名となります。机を使用されますと３００名程度となります。</p>
+                                        <p class="text-muted text-danger mt-2">※1	土曜・日曜・祝日の使用料は、上記の２割増となります。なお、冷暖房料は廃止になりました。</p>
+                                        <p class="text-muted text-danger">※2	附属設備は、上表以外に別途料金が掛かります。</p>
+                                    </div>
+                                    <div class="row m-0 py-3 text-center w-100">
+                                        <h5 class="font-weight-bold w-100 text-left"><span class="text-danger">◆</span> 利用区分</h5>
+                                        <table class="table table-sm table-bordered mx-auto p-0 border-indigo tbl-ryokin" style="min-width:300px;width:60%;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:30%;">利用区分</th>
+                                                    <th colspan="3" style="width:70%;">時　間　帯</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="ry1 text-center">午　前</td>
+                                                    <td class="ry1 text-center" style="width:30%;border-right:0;">午前9時30分</td>
+                                                    <td class="ry1 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry1 text-center" style="width:30%;border-left:0;">午後0時30分</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="ry2 text-center">午　後</td>
+                                                    <td class="ry2 text-center" style="width:30%;border-right:0;">午後1時00分</td>
+                                                    <td class="ry2 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry2 text-center" style="width:30%;border-left:0;">午後5時00分</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="ry3 text-center">夜　間</td>
+                                                    <td class="ry3 text-center" style="width:30%;border-right:0;">午後5時30分</td>
+                                                    <td class="ry3 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry3 text-center" style="width:30%;border-left:0;">午後9時30分</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="ry4 text-center">午前-午後</td>
+                                                    <td class="ry4 text-center" style="width:30%;border-right:0;">午前9時30分</td>
+                                                    <td class="ry4 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry4 text-center" style="width:30%;border-left:0;">午後5時00分</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="ry5 text-center">午後-夜間</td>
+                                                    <td class="ry5 text-center" style="width:30%;border-right:0;">午後1時00分</td>
+                                                    <td class="ry5 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry5 text-center" style="width:30%;border-left:0;">午後9時30分</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="ry6 text-center">全　日</td>
+                                                    <td class="ry6 text-center" style="width:30%;border-right:0;">午前9時30分</td>
+                                                    <td class="ry6 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry6 text-center" style="width:30%;border-left:0;">午後9時30分</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                  </div>
+                                  <div class="tab-pane" id="entranceFeeAri">
+                                    <h6>使用にあたって入場料の類を徴収するものの料金</h6>
+                                    <div class="row m-0 p-0 ryokin-cont">
+                                        <table class="table table-sm table-bordered m-0 p-0 border-blue tbl-ryokin" style="min-width:500px;">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="3" style="width:25%;">室　　名 <br/>(面積 / 定員)</th>
+                                                    <th colspan="6" style="width:60%;"><span class="text-danger">入場料を徴収するもの</span>　(円）</th>
+                                                    <th rowspan="3"  style="width:15%;">備考</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ry1" style="width:10%;">午前</th>
+                                                    <th class="ry2" style="width:10%;">午後</th>
+                                                    <th class="ry3" style="width:10%;">夜間</th>
+                                                    <th class="ry4" style="width:10%;">午前-午後</th>
+                                                    <th class="ry5" style="width:10%;">午後-夜間</th>
+                                                    <th class="ry6" style="width:10%;">全日</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ry1" style="width:10%;">9：30～12：30</th>
+                                                    <th class="ry2" style="width:10%;">13：00～17：00</th>
+                                                    <th class="ry3" style="width:10%;">17：30～21：30</th>
+                                                    <th class="ry4" style="width:10%;">9：30～17：00</th>
+                                                    <th class="ry5" style="width:10%;">13：00～21：30</th>
+                                                    <th class="ry6" style="width:10%;">9：30～21：30</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="col-room"><span>ホール<br/><span class="text-muted">(広さ：549.5m² / 定員：700人)</span></td>
+                                                    <td class="num ry1">16,500</td>
+                                                    <td class="num ry2">21,900</td>
+                                                    <td class="num ry3">21,900</td>
+                                                    <td class="num ry4">32,700</td>
+                                                    <td class="num ry5">37,100</td>
+                                                    <td class="num ry6">52,400</td>
+                                                    <td>舞台つき</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第1会議室<br/><span class="text-muted">(広さ：71.7m² / 定員：20人)</span></td>
+                                                    <td class="num ry1">2,000</td>
+                                                    <td class="num ry2">2,700</td>
+                                                    <td class="num ry3">2,700</td>
+                                                    <td class="num ry4">3,600</td>
+                                                    <td class="num ry5">4,200</td>
+                                                    <td class="num ry6">5,900</td>
+                                                    <td rowspan="2">2室の場合56名</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第2会議室<br/><span class="text-muted">(広さ：73.7m² / 定員：20人)</span></td>
+                                                    <td class="num ry1">2,000</td>
+                                                    <td class="num ry2">2,700</td>
+                                                    <td class="num ry3">2,700</td>
+                                                    <td class="num ry4">3,600</td>
+                                                    <td class="num ry5">4,200</td>
+                                                    <td class="num ry6">5,900</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第3会議室<br/><span class="text-muted">(広さ：38.4m² / 定員：12人)</span></td>
+                                                    <td class="num ry1">1,500</td>
+                                                    <td class="num ry2">2,000</td>
+                                                    <td class="num ry3">2,000</td>
+                                                    <td class="num ry4">2,300</td>
+                                                    <td class="num ry5">2,600</td>
+                                                    <td class="num ry6">3,600</td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第4会議室<br/><span class="text-muted">(広さ：49.3m² / 定員：20人)</span></td>
+                                                    <td class="num ry1">1,500</td>
+                                                    <td class="num ry2">2,000</td>
+                                                    <td class="num ry3">2,000</td>
+                                                    <td class="num ry4">2,300</td>
+                                                    <td class="num ry5">2,600</td>
+                                                    <td class="num ry6">3,600</td>
+                                                    <td>厨房有り</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第5会議室<br/><span class="text-muted">(広さ：35.6m² / 定員：18人)</span></td>
+                                                    <td class="num ry1">1,500</td>
+                                                    <td class="num ry2">2,000</td>
+                                                    <td class="num ry3">2,000</td>
+                                                    <td class="num ry4">2,300</td>
+                                                    <td class="num ry5">2,600</td>
+                                                    <td class="num ry6">3,600</td>
+                                                    <td rowspan="2">2室の場合30名</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>第6会議室<br/><span class="text-muted">(広さ：22.8m² / 定員：12人)</span></td>
+                                                    <td class="num ry1">1,500</td>
+                                                    <td class="num ry2">2,000</td>
+                                                    <td class="num ry3">2,000</td>
+                                                    <td class="num ry4">2,300</td>
+                                                    <td class="num ry5">2,600</td>
+                                                    <td class="num ry6">3,600</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>和室（１）<br/><span class="text-muted">(面積：10畳 / 定員：10人)</span></td>
+                                                    <td class="num ry1">1,500</td>
+                                                    <td class="num ry2">2,000</td>
+                                                    <td class="num ry3">2,000</td>
+                                                    <td class="num ry4">2,300</td>
+                                                    <td class="num ry5">2,600</td>
+                                                    <td class="num ry6">3,600</td>
+                                                    <td rowspan="2">2室通して利用可</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-room"><span>和室（２）<br/><span class="text-muted">(面積：12畳 / 定員：12人)</span></td>
+                                                    <td class="num ry1">1,500</td>
+                                                    <td class="num ry2">2,000</td>
+                                                    <td class="num ry3">2,000</td>
+                                                    <td class="num ry4">2,300</td>
+                                                    <td class="num ry5">2,600</td>
+                                                    <td class="num ry6">3,600</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row m-0 p-0 w-100">
+                                        <p class="text-muted text-right w-100">＊ホールの定員はイス席で７００名となります。机を使用されますと３００名程度となります。</p>
+                                        <p class="text-muted text-danger mt-2">※1	土曜・日曜・祝日の使用料は、上記の２割増となります。なお、冷暖房料は廃止になりました。</p>
+                                        <p class="text-muted text-danger">※2	附属設備は、上表以外に別途料金が掛かります。</p>
+                                    </div>
+                                    <div class="row m-0 py-3 text-center w-100">
+                                        <h5 class="font-weight-bold w-100 text-left"><span class="text-danger">◆</span> 利用区分</h5>
+                                        <table class="table table-sm table-bordered mx-auto p-0 border-indigo tbl-ryokin" style="min-width:300px;width:60%;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:30%;">利用区分</th>
+                                                    <th colspan="3" style="width:70%;">時　間　帯</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="ry1 text-center">午　前</td>
+                                                    <td class="ry1 text-center" style="width:30%;border-right:0;">午前9時30分</td>
+                                                    <td class="ry1 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry1 text-center" style="width:30%;border-left:0;">午後0時30分</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="ry2 text-center">午　後</td>
+                                                    <td class="ry2 text-center" style="width:30%;border-right:0;">午後1時00分</td>
+                                                    <td class="ry2 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry2 text-center" style="width:30%;border-left:0;">午後5時00分</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="ry3 text-center">夜　間</td>
+                                                    <td class="ry3 text-center" style="width:30%;border-right:0;">午後5時30分</td>
+                                                    <td class="ry3 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry3 text-center" style="width:30%;border-left:0;">午後9時30分</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="ry4 text-center">午前-午後</td>
+                                                    <td class="ry4 text-center" style="width:30%;border-right:0;">午前9時30分</td>
+                                                    <td class="ry4 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry4 text-center" style="width:30%;border-left:0;">午後5時00分</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="ry5 text-center">午後-夜間</td>
+                                                    <td class="ry5 text-center" style="width:30%;border-right:0;">午後1時00分</td>
+                                                    <td class="ry5 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry5 text-center" style="width:30%;border-left:0;">午後9時30分</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="ry6 text-center">全　日</td>
+                                                    <td class="ry6 text-center" style="width:30%;border-right:0;">午前9時30分</td>
+                                                    <td class="ry6 text-center" style="width:10%;border-left:0;border-right:0;">～</td>
+                                                    <td class="ry6 text-center" style="width:30%;border-left:0;">午後9時30分</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                  </div>
+                                  <div class="tab-pane" id="bihinFee">
+                                    <p>使用料の「１回につき」は、利用分の「午前」「午後」「夜間」にそれぞれ使用する場合をいい、<br/>「午前午後」・「午後夜間」をご利用の場合は２回、「全日」ご利用の場合は３回となります。</p>
+                                    <div class="row m-0 p-0">
+                                        <table class="table table-sm table-bordered m-0 p-0 border-blue tbl-ryokin">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="2" style="width:40%;">品 　　 名</th>
+                                                    <th rowspan="2" style="width:20%;">単　位</th>
+                                                    <th colspan="2"  style="width:40%;">使　用　料</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="width:20%;">(につき)</th>
+                                                    <th style="width:20%;">(円)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>拡声装置A</td>
+                                                    <td class="text-center">1式</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">1,650</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>追加有線マイク</td>
+                                                    <td class="text-center">1本</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">350</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>付属ワイヤレスマイク装置</td>
+                                                    <td class="text-center">1式</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">1,050</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>追加ワイヤレスマイク</td>
+                                                    <td class="text-center">1本</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">350</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ボーダーライト</td>
+                                                    <td class="text-center">1列</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">550</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>サスペンションライト</td>
+                                                    <td class="text-center">1系統（6台)</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">2,100</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ホリゾントライト</td>
+                                                    <td class="text-center">1列</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">550</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>フットライト</td>
+                                                    <td class="text-center">1列</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">1,050</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>シーリングスポット</td>
+                                                    <td class="text-center">1系統（6台)</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">2,100</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>サイドフロントスポット</td>
+                                                    <td class="text-center">1台</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">350</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ピンスポット</td>
+                                                    <td class="text-center">1台</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">400</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>調光設備</td>
+                                                    <td class="text-center">1式</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">1,050</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ブレストインターホーンヘッド</td>
+                                                    <td class="text-center">1組</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">350</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>グランドピアノ</td>
+                                                    <td class="text-center">1台</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">2,750</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>金屏風</td>
+                                                    <td class="text-center">1双</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">550</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>卓球台</td>
+                                                    <td class="text-center">1台</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">200</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>持込設備電源使用料</td>
+                                                    <td class="text-center">1ＫＷ</td>
+                                                    <td class="text-center">1時間</td>
+                                                    <td class="num">200</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>絵画等展示設備</td>
+                                                    <td class="text-center">1枚</td>
+                                                    <td class="text-center">1日</td>
+                                                    <td class="num">200</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>拡声装置Ｂ（備付１・携帯１）</td>
+                                                    <td class="text-center">1台</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">950</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>追加ワイヤレスマイク</td>
+                                                    <td class="text-center">1本</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">350</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>アップライトピアノ</td>
+                                                    <td class="text-center">1台</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">1,650</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ガスコンロ</td>
+                                                    <td class="text-center">1台</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">150</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ガスレンジ</td>
+                                                    <td class="text-center">1台</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">350</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ビデオプロジェクター</td>
+                                                    <td class="text-center">1台</td>
+                                                    <td class="text-center">1回</td>
+                                                    <td class="num">550</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+			            </div><!-- End -->
+					</div>
+				</div>
+			</div><!-- modal-content -->
+		</div><!-- modal-dialog -->
+	</div><!-- modal -->
+	<!-- 施設の部屋情報Modal -->
+	<div class="modal right fade" id="roomModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="roomModal">
+		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h4 class="modal-title text-light font-weight-bold" id="roomModalLabel">施設の部屋情報</h4>
+					<button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">閉じる <span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body py-2 px-1">
+					<div class="row justify-content-around p-0 m-0" id="roomBodyCont">
+					    <div class="card border-teal w-100 mb-2">
+        					<h6 class="card-header wd">施設情報</h6>
+        					<div class="card-body row m-0 p-2">
+        					    <div class="row w-100 m-0 p-0">
+            						<div class="col-sm-3 col-lbl">
+            						    <span>施設名</span>
+            						</div>
+            						<div class="col-sm-9 col-inp">
+            							<p>北区民センター</p>
+            							<p>ホール・会議室・和室等</p>
+            						</div>
+        						</div>
+        					    <div class="row w-100 m-0 p-0 row-last">
+            						<div class="col-sm-3 col-lbl">
+            						    <span>注意事項</span>
+            						</div>
+            						<div class="col-sm-9 col-inp">
+            							<p>大阪市区役所附設条例及び大阪市区役所附設会館条例施行規則の一部改正に伴い、平成29年4月1日から区民センター・区民ホール等の使用料の納付期限が変更になります。</p>
+            							<p>平成29年4月1日より、窓口及びFAXにてキャンセル待ちの受付を開始いたします。</p>
+            							<p>貸室のお申込みは、ご利用日の６か月前から受付します。</p>
+            							<p>お支払後、予約完了となります。</p>
+            						</div>
+        						</div>
+        					</div>
+        				</div>
+        				<!-- -->
+					    <div class="card border-teal w-100 mb-2">
+        					<h6 class="card-header wd">部屋情報</h6>
+        					<div class="card-body row m-0 p-2">
+        					    <div class="row w-100 m-0 p-0">
+            						<div class="col-sm-3 col-lbl">
+            						    <span>部屋名</span>
+            						</div>
+            						<div class="col-sm-9 col-inp">
+            							<p>第１会議室</p>
+            						</div>
+        						</div>
+        					    <div class="row w-100 m-0 p-0">
+            						<div class="col-sm-3 col-lbl">
+            						    <span>情報</span>
+            						</div>
+            						<div class="col-sm-9 col-inp">
+            							<p>定員：20名　面積：71.1㎡</p>
+            							<p>主な用途：各種の会議や講習会など</p>
+            						</div>
+        						</div>
+        					    <div class="row w-100 m-0 p-0 row-last">
+            						<div class="col-sm-3 col-lbl">
+            						    <span>画像</span>
+            						</div>
+            						<div class="col-sm-9 col-inp">
+            							<p><img src="https://www.osakacommunity.jp/kita/images/floormap/k1.jpg" /></p>
+            						</div>
+        						</div>
+        					</div>
+        				</div>
+					</div>
+				</div>
+			</div><!-- modal-content -->
+		</div><!-- modal-dialog -->
+	</div><!-- modal -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery.min.js"></script>
+    <!--
+	<script src="js/bootstrap.bundle.min.js" ></script>
+	 -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/js/mdb.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<!--
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    -->
+    <script type="text/javascript" src="js/datepicker.js"></script>
+    <script type="text/javascript" src="js/telecom.js"></script>
+    <script type="text/javascript">
+ 	
+	var reloadFn;
+	var dateFmtOptions = {year: 'numeric', month: 'narrow', day: '2-digit', weekday: 'narrow', hour: '2-digit', minute: '2-digit'};
+	var now, selectWeekStart, firstWeekStart, lastWeekStart, startDt, endDt;
+	var akiItems = ['○', '×', '休'], akiValues = ['0', '1'];
+	$(function() {
+		getLatestDt();
+		
+		$('body').on('click', 's-btn', function(e) {
+			e.preventDefault();
+			var id = $(this).data('id');
+		});
+		
+		$('.modal').on('show.bs.modal', function(e) {
+			$('html').addClass('modal-open');
+		});
+		$('.modal').on('hide.bs.modal', function(e) {
+			$('html').removeClass('modal-open');
+		});
+		
+		$('#roomModal').on('show.bs.modal', function (event) {
+			var alink = $(event.relatedTarget),
+			    title = alink.text(),
+			    roomId = alink.data('rid');
+			$('#roomModalLabel').text('設備: ' + title);
+		});
+		
+		/*
+		$('body').on('click', '.modal-body > .btn', function(e) {
+			e.preventDefault();
+			document.location = akijokyo.html
+		});
+		*/
+		// 
+		$('body').on('click', '#refreshBtn', function(e) {
+			e.preventDefault();
+			$(this).prop("disabled", true);
+			// add spinner to button
+			$(this).html(
+				'最新情報取得中...　<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>'
+			);
+			reloadFn = setTimeout(refreshData, 2000);
+		});
+		// Datepicker initialization
+		now = new Date(), startDt = new Date(), endDt = new Date(2020, 11, 31);
+		firstWeekStart = new Date(startDt.getTime());
+		firstWeekStart.setDate(firstWeekStart.getDate() - firstWeekStart.getDay());
+		lastWeekStart = new Date(endDt.getTime());
+		lastWeekStart.setDate(lastWeekStart.getDate() - lastWeekStart.getDay());
+		$('#dateSelectBtn').datepicker({startDate: startDt, endDate: endDt, callbacks: { onHide: onDateClose }});
+		// 
+		generateDummyData(now);
+		// 
+		if(selectWeekStart.setHours(0,0,0,0) == firstWeekStart.setHours(0,0,0,0)) {
+			$('.prev-week-btn').prop('disabled', true);
+		}
+
+		$('body').on('click', '.prev-week-btn', function(e) {
+			e.preventDefault();
+			selectWeekStart.setDate(selectWeekStart.getDate() - 7);
+			generateDataPc(selectWeekStart);
+			setPrevNextButton();
+		});
+		$('body').on('click', '.next-week-btn', function(e) {
+			e.preventDefault();
+			selectWeekStart.setDate(selectWeekStart.getDate() + 7);
+			generateDataPc(selectWeekStart);
+			setPrevNextButton();
+		});
+		$('body').on('click', '.today-btn', function(e) {
+			e.preventDefault();
+			generateDummyData(now);
+			setPrevNextButton();
+		});
+		// 空き状況の〇押下時
+		$('body').on('click', '.aday > a', function(e) {
+			e.preventDefault();
+			console.log('Sel date : ' + $(this).data('date') + ' , time-slot : ' + $(this).data('ts'));
+			//document.location = 'login.html';
+		});
+
+	});
+	// 
+	function setDisabledPrevButton() {
+		if($('.next-week-btn').is(':disabled')) {
+			$('.next-week-btn').prop('disabled', false);
+		}
+		if(selectWeekStart.setHours(0,0,0,0) == firstWeekStart.setHours(0,0,0,0)) {
+			$('.prev-week-btn').prop('disabled', true);
+		}
+	}
+	// 
+	function setDisabledNextButton() {
+		if($('.prev-week-btn').is(':disabled')) {
+			$('.prev-week-btn').prop('disabled', false);
+		}
+		if(selectWeekStart.setHours(0,0,0,0) == lastWeekStart.setHours(0,0,0,0)) {
+			$('.next-week-btn').prop('disabled', true);
+		}
+	}
+	function setPrevNextButton() {
+		if(selectWeekStart.setHours(0,0,0,0) == firstWeekStart.setHours(0,0,0,0)) {
+			$('.prev-week-btn').prop('disabled', true);
+		} else {
+			$('.prev-week-btn').prop('disabled', false);
+		}
+		if(selectWeekStart.setHours(0,0,0,0) == lastWeekStart.setHours(0,0,0,0)) {
+			$('.next-week-btn').prop('disabled', true);
+		} else {
+			$('.next-week-btn').prop('disabled', false);
+		}
+	}
+	// キャレンダー閉じる時
+	function onDateClose(date) {
+	    // TODO: Refresh the data with the date
+	    console.log('Selected Date : ' + date);
+	    $('#dateSelectBtn').data('date', date);
+		var dt = $.datepicker.defaults.parseDate(date);
+		generateDummyData(dt);
+		setPrevNextButton();
+	}
+	// 最新情報再取得
+	function refreshData() {
+		clearTimeout(reloadFn);
+		getLatestDt();
+		$('#refreshBtn').html('最新情報表示');
+		$('#refreshBtn').prop('disabled', false);
+	}
+	// 最新情報取得(ダミー）
+	function getLatestDt() {
+		var jpDt = (new Date()).toLocaleDateString('ja-JP', dateFmtOptions);
+		if(jpDt.indexOf('(') > 0) {
+			jpDt = jpDt.replace('(', ' （').replace(')', '）');
+		} else {
+			jpDt = jpDt.substring(0, jpDt.length-1) + '（' + jpDt.substring(jpDt.length-1) + '）';
+		}
+		var hr = parseInt(jpDt.substring(jpDt.indexOf('）')+1, jpDt.indexOf(':'))) > 12 ? '午後 ' : '午前 ';
+		jpDt = jpDt.replace('）', '）' + hr);
+		jpDt = jpDt.replace(':', '時') + '分';
+		console.log(jpDt);
+		$('.latest-data').text(jpDt + '現在の空き状況を表示しています。');
+	}
+	// 
+	function generateDummyData(dt) {
+		selectWeekStart = new Date(dt.getTime());
+		selectWeekStart.setDate(selectWeekStart.getDate() - selectWeekStart.getDay());
+		generateDataPc(selectWeekStart);
+	}
+	// 
+	function generateDataPc(weekStartDt) {
+		console.log('Generate data for PC!');
+		var dt = new Date(weekStartDt.getTime());
+		var dtStr = '', dtDisp = '';
+		$('.header.today').removeClass('today');
+		$('.aday').removeClass('today yellow gray hol');
+		console.log('End Date : ' + endDt.toDateString());
+		for(var i=0; i < 7; i++) {
+			dtStr = $.datepicker.defaults.formatDate(dt);
+			dtDisp = (dt.getMonth()+1) + '/' + dt.getDate() + '(' + $.datepicker.defaults.strings.days[i] + ')';
+			$('.header.wd' + i).text(dtDisp);
+			if(now.setHours(0,0,0,0) == dt.setHours(0,0,0,0)) {
+				$('.header.wd' + i).addClass('today');
+				$('.header.wdd' + i).addClass('today');
+				$('.aday.day' + i).addClass('today');
+			}
+			// TODO: generate data
+			if(now.setHours(0,0,0,0) >= dt.setHours(0,0,0,0) || dt.setHours(0,0,0,0) > endDt.setHours(0,0,0,0)) {
+				$('.aday.day' + i).addClass('gray');
+				$('.aday.day' + i).html('<span>&nbsp;</span>');
+			} else {
+				setDayData(i, dtStr);
+			}
+			dt.setDate(dt.getDate() + 1);
+		}
+	}
+	// Dummy generate and populate data
+	function setDayData(idx, dtStr) {
+		var itemIdx = (akiItems.length * Math.random() | 0),
+		    val = akiValues[akiValues.length * Math.random() | 0];
+		if(itemIdx == 0) {
+			if(val == '1') {
+				$('.aday.day' + idx).addClass('yellow');
+				$('.aday.day' + idx + '.ts0').html('<a href="" data-date="' + dtStr + '" data-ts="0">'+ akiItems[itemIdx] + '</a>');
+				$('.aday.day' + idx + '.ts1').html('<a href="" data-date="' + dtStr + '" data-ts="1">'+ akiItems[itemIdx] + '</a>');
+				$('.aday.day' + idx + '.ts2').html('<a href="" data-date="' + dtStr + '" data-ts="2">'+ akiItems[itemIdx] + '</a>');
+			} else {
+				$('.aday.day' + idx).html('<span>'+ akiItems[itemIdx] + '</span>');
+			}
+		} else if(itemIdx == 2) {
+			$('.aday.day' + idx).addClass('hol');
+			$('.aday.day' + idx).html('<span>'+ akiItems[itemIdx] + '</span>');
+		} else {
+			$('.aday.day' + idx).addClass('gray');
+			$('.aday.day' + idx).html('<span>'+ akiItems[itemIdx] + '</span>');
+		}
+	}
+    </script>
+  </body>
+</html>

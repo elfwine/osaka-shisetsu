@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <title>大阪市 区民センター・施設状況・予約システム</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta name="description" content="大阪市 区民センター・施設状況・予約システム">
+    <meta name="keywords" content="大阪市 区民センター・施設状況・予約システム">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Fujitelecom">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <!-- Local CSS -->
+    <!-- 
+	<link rel="stylesheet" href="css/fonts.css"/>
+    <link rel="stylesheet" href="css/fontawesome.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css" >
+    <link rel="stylesheet" href="css/mdb.min.css">
+	 -->
+	<link href="https://fonts.googleapis.com/earlyaccess/notosansjp.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/telecom.css" >
+  </head>
+  <body>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+		<div class="container-xl">
+			<span class="navbar-brand" >大阪市 区民センター・施設状況・予約システム</span>
+		</div>
+	</nav>
+    <div class="wrapper">
+    	<div class="container-xl main-container pb-3">
+    		<div class="alert alert-info mt-1 mb-0 text-right border-info" role="alert">
+				<a href="" >初めての方はこちら（利用ガイド）<i class="fas fa-angle-right"></i></a>
+			</div>
+	    	<!-- 施設から検索 -->
+	    	<div class="card card-sp">
+	    		<h5 class="card-header card-header-primary" ><i class="fas fa-city text-white mr-3"></i>施設から見る <small class="ml-5">施設一覧から空き状況閲覧や、予約申込ができます。</small></h5>
+	    		<div class="card-body m-0 p-2">
+					<div class="row justify-content-around p-0 m-0">
+						<div class="col-sm-6 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block" data-toggle="modal" data-target="#shiminModal">市・区民センター等 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block" data-toggle="modal" data-target="#creoModal">クレオ大阪 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    	<!-- 利用人数から検索 -->
+	    	<!--
+	    	<div class="card mt-2">
+	    		<h5 class="card-header bg-info" ><i class="fas fa-users text-white mr-3"></i> 利用人数から見る <small class="ml-5">部屋の収容人数から空き状況閲覧や、予約申込ができます。</small></h5>
+	    		<div class="card-body m-0 p-1">
+					<div class="row justify-content-around p-0 m-0">
+						<div class="col-6 col-sm-3 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="" >20人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-6 col-sm-3 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="" >50人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-6 col-sm-3 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="" >100人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-6 col-sm-3 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="" >100人以上 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    	-->
+	    	<!-- 利用目的から検索 -->
+	    	<div class="card card-sp">
+	    		<h5 class="card-header card-header-info" ><i class="far fa-building text-white mr-3"></i> 利用目的から見る <small class="ml-5">定員を指定して検索する</small></h5>
+	    		<div class="card-body m-0 p-0">
+					<div class="row justify-content-around p-1 m-0">
+						<div class="col-md-6 col-lg-4 p-1">
+							<div class="card border-success m-0">
+					    		<h6 class="card-header" ><i class="fas fa-building text-success mr-3"></i> 会議室を検索</h6>
+					    		<div class="card-body m-0 p-1">
+									<div class="row justify-content-around p-0 m-0">
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="confRoom1" >15人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="confRoom2" >15～20人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="confRoom3" >20～25人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="confRoom4" >25～30人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="confRoom5" >30～40人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="confRoom6" >40～50人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="confRoom7" >50人以上 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+					    			</div>
+					    		</div>
+					    	</div>
+						</div>
+						<div class="col-md-6 col-lg-4 p-1">
+							<div class="card border-success m-0">
+					    		<h6 class="card-header" ><i class="fas fa-landmark text-success mr-3"></i> ホールを検索</h6>
+					    		<div class="card-body m-0 p-1">
+									<div class="row justify-content-around p-0 m-0">
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="hall1" >500人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="hall2" >500～700人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="hall3" >700人以上<i class="fas fa-angle-right fa-pull-right"></i></button></div>
+					    			</div>
+					    		</div>
+					    	</div>
+						</div>
+						<div class="col-md-6 col-lg-4 p-1">
+							<div class="card border-success m-0">
+					    		<h6 class="card-header " ><i class="fas fa-warehouse text-success mr-3"></i> 特別室を検索</h6>
+					    		<div class="card-body m-0 p-1">
+									<div class="row justify-content-around p-0 m-0">
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="spRoom1" >10人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="spRoom2" >10～20人以下 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+										<div class="col-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block s-btn" data-toggle="modal" data-target="#shisetsuModal" data-id="spRoom3" >20人以上 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+					    			</div>
+					    		</div>
+					    	</div>
+						</div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    	<!-- ご利用案内 -->
+	    	<div class="card card-sp">
+	    		<h5 class="card-header card-header-warning" ><i class="fas fa-book-reader text-white mr-3"></i> ご利用案内 <small class="ml-5">部屋の収容人数から空き状況閲覧や、予約申込ができます。</small></h5>
+	    		<div class="card-body m-0 p-2">
+					<div class="row justify-content-around p-0 m-0">
+						<div class="col-md-4 p-1"><a role="button" href="login.html" class="btn btn-outline-warning waves-effect btn-block" >予約の照会、取り消し <i class="fas fa-angle-right fa-pull-right"></i></a></div>
+						<div class="col-md-4 p-1"><a role="button" href="login.html" class="btn btn-outline-warning waves-effect btn-block" >パスワードを変更する <i class="fas fa-angle-right fa-pull-right"></i></a></div>
+						<div class="col-md-4 p-1"><button role="button" class="btn btn-outline-info waves-effect btn-block" >操作説明を見る <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+	    			</div>
+	    		</div>
+	    	</div>
+    	</div>
+    </div>
+	<footer>
+		<div class="text-muted text-center">大阪市 区民センター・施設状況・予約システム. <br/>Copyright &copy; All rights reserved.</div>
+	</footer>
+	<!-- 市民施設Modal -->
+	<div class="modal left fade" id="shiminModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="shiminModal">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h4 class="modal-title text-light font-weight-bold" id="shiminModalLabel">市・区民施設選択</h4>
+					<button type="button" class="btn btn-light m-0" data-dismiss="modal" aria-label="Close">閉じる <span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body">
+					<div class="row justify-content-around p-0 m-0">
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >北区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >大淀コミュニティセンター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >都島区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >福島区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >此花区民ホール <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >J:COM中央区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >中央会館 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >西区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >港区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >港近隣センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >大正会館 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >天王寺区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >浪速区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >西淀川区民ホール <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >西淀川区民会館 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >淀川区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >東淀川区民会館 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >東成区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >生野区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >旭区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >鶴見区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >阿倍野区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >住之江会館 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >住吉区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >東住吉会館 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >平野区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >平野区民ホール <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >西成区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >城東区民センター <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >大正区民ホール <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >東淀川区民ホール <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >すみのえ舞昆ホール <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-4 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >東住吉区民ホール <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+					</div>
+				</div>
+			</div><!-- modal-content -->
+		</div><!-- modal-dialog -->
+	</div><!-- modal -->
+	<!-- クレオ大阪Modal -->
+	<div class="modal left fade" id="creoModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="creoModal">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-success">
+					<h4 class="modal-title text-light font-weight-bold" id="creoModalLabel">クレオ大阪の施設選択</h4>
+					<button type="button" class="btn btn-light m-0" data-dismiss="modal" aria-label="Close">閉じる <span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body">
+					<div class="row justify-content-around p-0 m-0">
+						<div class="col-sm-12 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block" >クレオ大阪（中央館） <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-12 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block" >クレオ大阪（西部館） <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-12 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block" >クレオ大阪（南部館） <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+						<div class="col-sm-12 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block" >クレオ大阪（東部館） <i class="fas fa-angle-right fa-pull-right"></i></button></div>
+					</div>
+				</div>
+			</div><!-- modal-content -->
+		</div><!-- modal-dialog -->
+	</div><!-- modal -->
+	<!-- 一般施設Modal -->
+	<div class="modal left fade" id="shisetsuModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="shisetsuModal">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h4 class="modal-title text-light font-weight-bold" id="shisetsuModalLabel">市・区民施設選択</h4>
+					<button type="button" class="btn btn-light m-0" data-dismiss="modal" aria-label="Close">閉じる <span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body">
+					<div class="row justify-content-around p-0 m-0" id="shisetsuBodyCont">
+					</div>
+				</div>
+			</div><!-- modal-content -->
+		</div><!-- modal-dialog -->
+	</div><!-- modal -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery.min.js"></script>
+	<!--
+	<script src="js/bootstrap.bundle.min.js" ></script>
+	 -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/js/mdb.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<!--
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+     -->
+    <!-- Custom JS -->
+     <script type="text/javascript" src="js/telecom.js"></script>
+    <script type="text/javascript">
+	var shisetsuData = {
+		"confRoom1": [
+			'城東区民センター 小会議室１ （6人）',
+			'大淀コミュニティセンター 和室（２） （8人）',
+			'西区民センター 楽屋 （8人）',
+			'生野区民センター １０７ （8人）',
+			'生野区民センター ３０３ （8人）',
+			'西成区民センター スタジオ （8人）',
+			'北区民センター 和室（１） （10人）',
+			'西区民センター 第２会議室 （10人）',
+			'淀川区民センター 和室 （10人）',
+			'生野区民センター 防音室２０３ （10人）',
+			'阿倍野区民センター 集会室２ （10人）',
+			'北区民センター 第３会議室 （12人）',
+			'北区民センター 第６会議室 （12人）',
+			'北区民センター 和室（２） （12人）',
+			'大淀コミュニティセンター 和室（１） （12人）',
+			'福島区民センター １０１会議室 （12人）',
+			'此花区民ホール 第２会議室 （12人）',
+			'港区民センター 和室（２階） （12人）',
+			'浪速区民センター 第６会議室 （12人）',
+			'西淀川区民ホール 第２会議室 （12人）',
+			'西淀川区民ホール 和室 （12人）',
+			'西淀川区民会館 第３会議室 （12人）',
+			'淀川区民センター 第３会議室 （12人）',
+			'淀川区民センター 小会議室 （12人）',
+			'淀川区民センター 第５会議室 （12人）',
+			'淀川区民センター 講習室 （12人）',
+			'生野区民センター １０３ （12人）',
+			'旭区民センター 集会室２ （12人）',
+			'住之江会館 小会議室 （12人）',
+			'平野区民ホール 第１会議室 （12人）',
+			'城東区民センター 小会議室２ （12人）',
+			'大淀コミュニティセンター 第２会議室 （14人）',
+			'中央会館 第３会議室 （14人）',
+			'港近隣センター 集会室１ （14人）'
+		],
+		"confRoom2": [
+			'福島区民センター ３０６会議室 （15人）',
+			'J:COM中央区民センター 和室 （15人）',
+			'港近隣センター 集会室３ （15人）',
+			'生野区民センター １０２ （15人）',
+			'東住吉会館 和室１ （15人）',
+			'東住吉会館 和室２ （15人）',
+			'都島区民センター 第１会議室 （16人）',
+			'西区民センター 第１会議室 （16人）',
+			'大正会館 和室 （16人）',
+			'浪速区民センター 第３会議室 （16人）',
+			'浪速区民センター 第９会議室 （16人）',
+			'生野区民センター 和室１０４ （16人）',
+			'生野区民センター ２０５ （16人）',
+			'東住吉会館 会議室１ （16人）',
+			'北区民センター 第５会議室 （18人）',
+			'福島区民センター ３０５会議室 （18人）',
+			'此花区民ホール 第３会議室 （18人）',
+			'浪速区民センター 第７会議室 （18人）',
+			'西淀川区民会館 第１会議室 （18人）',
+			'西淀川区民会館 第２会議室 （18人）',
+			'西淀川区民会館 和室 （18人）',
+			'生野区民センター ３０５ （18人）',
+			'旭区民センター 集会室３ （18人）',
+			'住吉区民センター 和室 （18人）',
+			'住吉区民センター 集会室３ （18人）',
+			'城東区民センター 小会議室３ （18人）'
+		],
+		"confRoom3": [
+			'北区民センター 第１会議室 （20人）',
+			'北区民センター 第２会議室 （20人）',
+			'北区民センター 第４会議室 （20人）',
+			'都島区民センター 第５会議室 （20人）',
+			'福島区民センター 和室 （20人）',
+			'此花区民ホール 第１会議室 （20人）',
+			'J:COM中央区民センター 第４会議室 （20人）',
+			'中央会館 和室 （20人）',
+			'西区民センター 第５会議室 （20人）',
+			'西区民センター 第６会議室 （20人）',
+			'西区民センター 和室 （20人）',
+			'西区民センター スタジオ （20人）',
+			'港区民センター 菊 （20人）',
+			'港区民センター 和室（１階） （20人）',
+			'港近隣センター 和室 （20人）',
+			'大正会館 第７会議室 （20人）',
+			'天王寺区民センター 第１会議室 （20人）',
+			'西淀川区民ホール 第１会議室 （20人）',
+			'旭区民センター 和室 （20人）',
+			'鶴見区民センター 集会室３ （20人）',
+			'鶴見区民センター 集会室４ （20人）',
+			'鶴見区民センター 和室 （20人）',
+			'阿倍野区民センター 集会室３ （20人）',
+			'阿倍野区民センター 和室 （20人）',
+			'住之江会館 会議室１ （20人）',
+			'住之江会館 会議室２ （20人）',
+			'住之江会館 会議室３ （20人）',
+			'平野区民センター 会議室２ （20人）',
+			'東成区民センター 集会室６０４ （21人）',
+			'東住吉会館 会議室２ （21人）',
+			'福島区民センター ３０３会議室 （22人）',
+			'福島区民センター ３０４会議室 （22人）',
+			'大淀コミュニティセンター 第４会議室 （24人）',
+			'大淀コミュニティセンター 第５会議室 （24人）',
+			'大淀コミュニティセンター 第６会議室 （24人）',
+			'大正会館 第３会議室 （24人）',
+			'大正会館 第６会議室 （24人）',
+			'浪速区民センター 第１会議室 （24人）',
+			'浪速区民センター 第２会議室 （24人）',
+			'浪速区民センター 第４会議室 （24人）',
+			'浪速区民センター 第８会議室 （24人）',
+			'西淀川区民会館 第４会議室 （24人）',
+			'淀川区民センター 第２会議室 （24人）',
+			'淀川区民センター 音楽室 （24人）',
+			'生野区民センター ３０２ （24人）',
+			'鶴見区民センター 集会室１ （24人）',
+			'住吉区民センター 集会室２ （24人）',
+			'西成区民センター 会議室１－２ （24人）'
+		],
+		"confRoom4": [
+			'都島区民センター 第３会議室 （25人）',
+			'西淀川区民ホール 第３会議室 （25人）',
+			'西淀川区民ホール 第４会議室 （25人）',
+			'平野区民センター 和室 （25人）',
+			'平野区民ホール 第２会議室 （25人）',
+			'平野区民ホール 第３会議室 （25人）',
+			'鶴見区民センター 集会室２ （26人）',
+			'東成区民センター 集会室６０２ （27人）',
+			'東成区民センター 集会室６０３ （27人）',
+			'東成区民センター 集会室７０１ （27人）',
+			'東住吉会館 会議室３ （27人）',
+			'城東区民センター 中会議室 （28人）'
+		],
+		"confRoom5": [
+			'此花区民ホール 第５会議室 （30人）',
+			'中央会館 第５会議室 （30人）',
+			'港近隣センター 集会室４ （30人）',
+			'大正会館 第４会議室 （30人）',
+			'大正会館 第５会議室 （30人）',
+			'天王寺区民センター 第２会議室 （30人）',
+			'天王寺区民センター 第３会議室 （30人）',
+			'天王寺区民センター 第４会議室 （30人）',
+			'天王寺区民センター 多目的室 （30人）',
+			'浪速区民センター 和室 （30人）',
+			'東淀川区民会館 和室１ （30人）',
+			'東成区民センター 集会室６０１ （30人）',
+			'生野区民センター ２０１ （30人）',
+			'生野区民センター ２０６ （30人）',
+			'住吉区民センター 集会室１ （30人）',
+			'平野区民ホール 和室 （30人）',
+			'西成区民センター 会議室１－１ （30人）',
+			'西成区民センター 会議室１－３ （30人）',
+			'西成区民センター 会議室２－３ （30人）',
+			'都島区民センター 第２会議室 （32人）',
+			'都島区民センター 第４会議室 （32人）',
+			'J:COM中央区民センター 第２会議室 （35人）',
+			'天王寺区民センター 和室 （35人）',
+			'平野区民センター 会議室５ （35人）',
+			'中央会館 第１会議室 （36人）',
+			'中央会館 第２会議室 （36人）',
+			'中央会館 第４会議室 （36人）',
+			'西区民センター 第３会議室 （36人）',
+			'浪速区民センター 第５会議室 （36人）',
+			'東淀川区民会館 洋室１ （36人）',
+			'城東区民センター 大会議室１ （36人）',
+			'城東区民センター 多目的室 （38人）'
+		],
+		"confRoom6": [
+			'港区民センター 梅 （40人）',
+			'港区民センター 楓 （40人）',
+			'港区民センター 橘 （40人）',
+			'生野区民センター 和室２０２ （40人）',
+			'住之江会館 和室 （40人）',
+			'平野区民センター 会議室３ （40人）',
+			'平野区民センター 会議室４ （40人）',
+			'西成区民センター 会議室２－２ （40人）',
+			'大淀コミュニティセンター 第１会議室 （45人）',
+			'大淀コミュニティセンター 第３会議室 （45人）',
+			'福島区民センター ３０２会議室 （45人）',
+			'港区民センター 椿 （48人）',
+			'旭区民センター 集会室１ （48人）',
+			'城東区民センター 大会議室２ （48人）'
+		],
+		"confRoom7": [
+			'J:COM中央区民センター 第３会議室 （50人）',
+			'阿倍野区民センター 集会室１ （50人）',
+			'福島区民センター ３０１会議室 （54人）',
+			'東淀川区民会館 会議室２ （54人）',
+			'西成区民センター 会議室２－１ （54人）',
+			'此花区民ホール 第４会議室 （60人）',
+			'西区民センター 第４会議室 （60人）',
+			'住吉区民センター 集会室４ （60人）',
+			'東淀川区民会館 和室３ （64人）',
+			'港近隣センター 集会室２ （70人）',
+			'淀川区民センター 第１会議室 （72人）',
+			'東淀川区民会館 和室４ （72人）',
+			'東住吉会館 大会議室 （72人）',
+			'港区民センター 松竹 （80人）',
+			'東淀川区民会館 会議室１ （90人）',
+			'生野区民センター ３０１ （90人）',
+			'住之江会館 大会議室 （120人）',
+			'港近隣センター 講堂 （130人）'
+		],
+		"hall1": [
+			'鶴見区民センター 小ホール （200人）',
+			'旭区民センター 小ホール （207人）',
+			'東成区民センター 小ホール （209人）',
+			'西淀川区民会館 ホール （234人）',
+			'中央会館 ホール （250人）',
+			'大正会館 ホール （300人）',
+			'住吉区民センター 小ホール （300人）',
+			'阿倍野区民センター 小ホール （304人）',
+			'浪速区民センター ホール （450人）'
+		],
+		"hall2": [
+			'大淀コミュニティセンター ホール （500人）',
+			'都島区民センター ホール （500人）',
+			'此花区民ホール ホール （500人）',
+			'J:COM中央区民センター ホール （500人）',
+			'西淀川区民ホール ホール （500人）',
+			'平野区民ホール ホール （500人）',
+			'港区民センター ホール （550人）',
+			'福島区民センター ホール （600人）',
+			'西区民センター ホール （600人）',
+			'天王寺区民センター ホール （600人）',
+			'淀川区民センター ホール （600人）',
+			'すみのえ舞昆ホール ホール （600人）',
+			'東住吉区民ホール ホール （600人）',
+			'東成区民センター 大ホール （615人）',
+			'阿倍野区民センター 大ホール （644人）',
+			'生野区民センター ホール （650人）'
+		],
+		"hall3": [
+			'北区民センター ホール （700人）',
+			'旭区民センター 大ホール （700人）',
+			'西成区民センター ホール （700人）',
+			'大正区民ホール ホール （700人）',
+			'城東区民センター ホール （773人）',
+			'鶴見区民センター つるみ日建ホール （800人）',
+			'東淀川区民ホール ホール （800人）',
+			'住吉区民センター 大ホール （900人）',
+			'平野区民センター ホール （1,200人）'
+		],
+		"spRoom1": [
+			'阿倍野区民センター スタジオ１ （4人）',
+			'東成区民センター 控室Ｃ （5人）',
+			'旭区民センター 控室２ （5人）',
+			'旭区民センター スタジオ１ （5人）',
+			'鶴見区民センター スタジオ （5人）',
+			'住吉区民センター スタジオ （5人）',
+			'旭区民センター 控室７ （6人）',
+			'鶴見区民センター 控室４ （6人）',
+			'阿倍野区民センター 控室２ （6人）',
+			'阿倍野区民センター 控室３ （6人）',
+			'阿倍野区民センター 控室４ （6人）',
+			'阿倍野区民センター スタジオ２ （6人）',
+			'住吉区民センター 控室１ （6人）',
+			'住吉区民センター 控室３ （6人）',
+			'住吉区民センター 控室４ （6人）',
+			'旭区民センター スタジオ２ （7人）',
+			'東成区民センター 控室Ｄ （8人）',
+			'鶴見区民センター 控室３ （8人）'
+		],
+		"spRoom2" : [
+			'東成区民センター 控室Ｅ （10人）',
+			'旭区民センター 控室４ （10人）',
+			'阿倍野区民センター 控室５ （10人）',
+			'阿倍野区民センター 控室６ （10人）',
+			'城東区民センター 控室１ （10人）',
+			'東成区民センター 控室Ａ （12人）',
+			'東成区民センター 控室Ｂ （12人）',
+			'鶴見区民センター 控室１ （12人）',
+			'鶴見区民センター 控室２ （12人）',
+			'住吉区民センター 控室２ （12人）',
+			'城東区民センター 控室２ （12人）',
+			'東成区民センター スタジオ （14人）',
+			'阿倍野区民センター 調理実習室 （15人）',
+			'旭区民センター 控室１ （16人）',
+			'旭区民センター 控室６ （16人）',
+			'旭区民センター 控室３ （16人）',
+			'東成区民センター アトリエ （17人）',
+			'東成区民センター 調理実習室 （18人）',
+			'鶴見区民センター アトリエ兼工作室 （18人）',
+			'住吉区民センター 調理実習室 （18人）'
+		],
+		"spRoom3" : [
+			'旭区民センター 控室５ （20人）',
+			'阿倍野区民センター アトリエ兼工作室 （20人）',
+			'旭区民センター アトリエ兼工作室 （24人）',
+			'旭区民センター 調理実習室 （25人）',
+			'鶴見区民センター 調理実習室 （30人）',
+			'住吉区民センター アトリエ工作室 （30人）'
+		]
+	};
+
+	$(function() {
+		$('body').on('click', 's-btn', function(e) {
+			e.preventDefault();
+			var id = $(this).data('id');
+		});
+		$('.modal').on('show.bs.modal', function(e) {
+			$('html').addClass('modal-open');
+		});
+		$('.modal').on('hide.bs.modal', function(e) {
+			$('html').removeClass('modal-open');
+		});
+		
+		$('#shisetsuModal').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget);
+			var id = button.data('id');
+			var data = shisetsuData[id], mHtml = '', title = '';
+			if(id.startsWith('confRoom')) {
+				title = '施設（会議室）選択';
+			} else if(id.startsWith('hall')) {
+				title = '施設（ホール）選択';
+			} else if(id.startsWith('spRoom')) {
+				title = '施設（特別室）選択';
+			} 
+			$.each(data, function(i, d) {
+				mHtml += '<div class="col-sm-6 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block text-left" >' + d + '<i class="fas fa-angle-right fa-pull-right"></i></button></div>'
+			});
+			$('#shisetsuBodyCont').html(mHtml);
+			$('#shisetsuModalLabel').html(title);
+			//var modal = $(this);
+			//modal.find('.modal-title').text('New message to ' + recipient);
+			//modal.find('.modal-body div:first').html(mHtml);
+		});
+		
+		$('body').on('click', '.modal-body .btn', function(e) {
+			e.preventDefault();
+			document.location = 'akijokyo.html';
+		});
+	});
+	
+    </script>
+  </body>
+</html>
