@@ -25,7 +25,18 @@
 	<link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css" rel="stylesheet">
 	 -->
-    <link rel="stylesheet" href="css/telecom.css" >
+	<link rel="stylesheet" href="css/telecom.css" >
+	<style>
+		.card-bg {
+			transition: all .4s ease-in-out;
+		}
+		.card-bg:hover {
+			opacity: 0.8;
+		}
+		a:active, a:link {
+			outline: none;
+		}
+	</style>
   </head>
   <body>
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary px-2">
@@ -38,16 +49,34 @@
     		<div class="alert alert-info mt-1 mb-0 text-right border-info" role="alert">
 				<a href="" >初めての方はこちら（利用ガイド）<i class="fas fa-angle-right"></i></a>
 			</div>
-	    	<!-- 施設から検索 -->
-	    	<div class="card card-sp">
-	    		<h5 class="card-header card-header-primary" ><i class="fas fa-city text-white mr-3"></i>施設から見る <small class="ml-5">施設一覧から空き状況閲覧や、予約申込ができます。</small></h5>
-	    		<div class="card-body m-0 py-2">
-					<div class="row justify-content-around p-0 m-0">
-						<div class="col-sm-6 p-1"><button role="button" class="btn btn-outline-primary waves-effect btn-block" data-toggle="modal" data-target="#shiminModal">市・区民センター等 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
-						<div class="col-sm-6 p-1"><button role="button" class="btn btn-outline-success waves-effect btn-block" data-toggle="modal" data-target="#creoModal">クレオ大阪 <i class="fas fa-angle-right fa-pull-right"></i></button></div>
-	    			</div>
-	    		</div>
-	    	</div>
+			<!-- 施設から検索 -->
+			<div class="card-deck my-2 px-2">
+				<!-- 市・区民センター等 -->
+				<div class="card blue-gradient p-0 rounded-lg card-bg">
+					<a href="#shiminModal" data-toggle="modal" class="h-100">
+						<div class="card-body text-white text-center">
+							<h3 class="mb-4 font-weight-bold">市・区民センター等</h3>
+							<p class="mb-4"><strong>市・区民センターの説明：</strong>施設一覧から空き状況閲覧や、予約申込ができます。</p>
+							<button class="btn btn-outline-white rounded-pill btn-pd">
+								施設一覧を見る<i class="fas fa-city text-white ml-2"></i>
+							</button>
+						</div>
+					</a>
+				</div>
+				<!-- クレオ大阪 -->
+				<div class="card aqua-gradient p-0 rounded-lg card-bg ">
+					<a href="#creoModal" data-toggle="modal"  class="h-100">
+						<div class="card-body text-white text-center">
+							<h3 class="mb-4 font-weight-bold">クレオ大阪</h3>
+							<p class="mb-4"><strong>クレオ大阪の説明：</strong>施設一覧から空き状況閲覧や、予約申込ができます。</p>
+							<button class="btn btn-outline-white rounded-pill btn-pd">
+								施設一覧を見る<i class="fas fa-city text-white ml-2"></i>
+							</button>
+						</div>
+					</a>
+				</div>
+			</div>
+	    	
 	    	<!-- 利用目的から検索 -->
 	    	<div class="card card-sp card-nav-tabs">
 	    		<div class="card-header card-header-success">
