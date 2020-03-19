@@ -763,31 +763,81 @@ span.tel {
     text-align: right;
 }
 .tbl-ryokin th.ry1,
-.tbl-ryokin td.ry1 {
+.tbl-ryokin td.ry1,
+.tbl-ryokin .ry1 {
     background-color: #ffcccc !important;
 }
 .tbl-ryokin th.ry2,
-.tbl-ryokin td.ry2 {
+.tbl-ryokin td.ry2,
+.tbl-ryokin .ry2 {
     background-color: #ffff80 !important;
 }
 .tbl-ryokin th.ry3,
-.tbl-ryokin td.ry3 {
+.tbl-ryokin td.ry3,
+.tbl-ryokin .ry3 {
     background-color: #80ff80 !important;
 }
 .tbl-ryokin th.ry4,
-.tbl-ryokin td.ry4 {
+.tbl-ryokin td.ry4,
+.tbl-ryokin .ry4 {
     background-color: #80ffff !important;
 }
 .tbl-ryokin th.ry5,
-.tbl-ryokin td.ry5 {
+.tbl-ryokin td.ry5,
+.tbl-ryokin .ry5 {
     background-color: #ccccff !important;
 }
 .tbl-ryokin th.ry6,
-.tbl-ryokin td.ry6 {
+.tbl-ryokin td.ry6,
+.tbl-ryokin .ry6 {
     background-color: #ccffcc !important;
 }
-
-
+.tbl-ryokin .d-ry {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: stretch;
+}
+.tbl-ryokin .d-ry div {
+    min-width: 20%;
+    width: 20%;
+    margin: 0 !important;
+    padding: 3px 2px;
+    text-align: center;
+    line-height: 1.1;
+    font-size: 0.9rem;
+    align-self: stretch;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.tbl-ryokin td .d-ry div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.tbl-ryokin th.p-0, 
+.tbl-ryokin td.p-0 {
+    padding: 0 !important;
+    min-height: 1px;
+    height: 1px;
+}
+.tbl-ryokin th.p-0 {
+    height: 100%;
+}
+.tbl-ryokin .d-ry div:not(:first-child) {
+    border-left: 1px solid #007bff;
+}
+@-moz-document url-prefix() {
+    .tbl-ryokin td.p-0 {
+        height: 40px;
+    }
+}
 /** DATEPICKER STYLE  */
 .modal > .modal-date > .modal-content > .modal-body,
 .modal > .modal-date > .modal-content > .modal-body,
@@ -1033,5 +1083,27 @@ span.tel {
     }
     .modal-content .btn {
         font-size: 0.7rem;
+    }
+}
+@media (max-width: 399.98px) {
+    .tbl-ryokin > thead > tr > th.ry6 {
+        width: 18% !important;
+    }
+    .tbl-ryokin .d-ry div {
+        width: 33.33%;
+        max-width: 50%;
+    }
+    .tbl-ryokin .d-ry div:nth-child(4),
+    .tbl-ryokin .d-ry div:nth-child(5) {
+        width: 50%;
+        border-top: 1px solid #007bff;
+    }
+    .tbl-ryokin .d-ry div:nth-child(4) {
+        border-left: 0;
+    }
+    @-moz-document url-prefix() {
+        .tbl-ryokin td.p-0 {
+            height: 70px;
+        }
     }
 }
