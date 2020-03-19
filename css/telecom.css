@@ -746,6 +746,7 @@ span.tel {
 .tbl-ryokin td {
     padding: 3px 2px !important;
     vertical-align: middle;
+    line-height: 1.1;
 }
 .tbl-ryokin td {
     text-align: left;
@@ -753,8 +754,7 @@ span.tel {
 .tbl-ryokin td.col-room {
     text-align: center;
     font-weight: normal;
-    font-size: 0.9rem;
-    line-height: 1.1;
+/*    font-size: 0.9rem; */
 }
 .tbl-ryokin td.col-room span.text-muted {
     font-size: 0.8rem;
